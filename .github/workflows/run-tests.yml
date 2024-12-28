@@ -1,5 +1,4 @@
-name: Run Unit Tests
-
+name: Build and Run Tests
 on:
   push:
     branches: [main]
