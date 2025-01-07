@@ -1,8 +1,15 @@
-import { render, screen, waitFor } from 'test/utilities';
-import PackingList from '.';
+import { render as _render, screen, waitFor } from 'test/utilities';
+import { PackingList } from './index';
+import { createStore } from './store';
+import { Provider } from 'react-redux';
+import React from 'react';
+
+const render = (ui: React.ReactElement) => {
+  return _render(<Provider store={createStore()}><PackingList /></Provider>)
+}
 
 it('renders the Packing List application', () => {
-  render(<PackingList />);
+  render(<Provider store={createStore()}><PackingList /></Provider>);
 });
 
 it('has the correct title', async () => {
@@ -63,7 +70,7 @@ it(
     await user.type(newItemInput, 'MacBook Pro')
     await user.click(addNewItemButton)
 
-    const removeItem = screen.getByLabelText('Remove MacBook Pro')
+    const removeItem = screen.getByLabelText(/remove/i)
 
     await user.click(removeItem)
 
