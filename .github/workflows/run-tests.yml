@@ -47,10 +47,16 @@ jobs:
     steps: 
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 23
+          cache: 'npm'
+      - run: npm ci
       - run: npm test -- --coverage
       - uses: actions/upload-artifact@v3
         name: Activate coverage report
         with:
           name: coverage-report
           path: coverage
-          
+
